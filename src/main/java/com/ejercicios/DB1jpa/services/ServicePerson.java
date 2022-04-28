@@ -28,11 +28,17 @@ public class ServicePerson {
     }
     public void deletePerson(int id){ repositorioPersona.deleteById(id);}
 
-    public PersonaOutputDto updatePerson(PersonaInputDto personaInputDto){
+    public PersonaOutputDto updatePerson(PersonaInputDto personaInputDto, int id){
         Persona persona = new Persona(personaInputDto);
-        repositorioPersona.save(persona);
-        PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
-        return  personaOutputDto;
+        boolean existe = repositorioPersona.existsById(id);
+        if(existe){
+            repositorioPersona.delete(persona);
+            repositorioPersona.save(persona);
+            PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
+            return personaOutputDto;
+        }else{
+            return null;
+        }
     }
 
     public PersonaOutputDto findByIdPerson(int id) throws Exception{

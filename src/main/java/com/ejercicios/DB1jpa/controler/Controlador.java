@@ -36,8 +36,8 @@ public class Controlador {
         servicePerson.deletePerson(id);
     }
     @PutMapping("/putP")
-    public PersonaOutputDto updatePerson(@RequestBody PersonaInputDto personaInputDto){
-        return servicePerson.updatePerson(personaInputDto);
+    public PersonaOutputDto updatePerson(@RequestBody PersonaInputDto personaInputDto, @RequestParam int id){
+        return servicePerson.updatePerson(personaInputDto, id);
     }
     @GetMapping("{id}")
     public PersonaOutputDto findPersonId(@PathVariable int id){

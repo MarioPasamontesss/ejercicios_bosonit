@@ -1,6 +1,6 @@
 package com.ejercicios.DB1jpa;
 
-import com.ejercicios.DB1jpa.services.ServicePerson;
+import com.ejercicios.DB1jpa.aplication.services.ServicePerson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

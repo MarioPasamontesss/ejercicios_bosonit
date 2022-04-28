@@ -1,7 +1,6 @@
-package com.ejercicios.DB1jpa.repositories;
+package com.ejercicios.DB1jpa.infraestructure.controler.repositories;
 
-import com.ejercicios.DB1jpa.persona.Persona;
-import com.ejercicios.DB1jpa.persona.dto.PersonaOutputDto;
+import com.ejercicios.DB1jpa.domain.entity.Persona;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

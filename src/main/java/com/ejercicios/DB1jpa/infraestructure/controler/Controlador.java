@@ -1,9 +1,9 @@
-package com.ejercicios.DB1jpa.controler;
+package com.ejercicios.DB1jpa.infraestructure.controler;
 
-import com.ejercicios.DB1jpa.persona.Persona;
-import com.ejercicios.DB1jpa.persona.dto.PersonaInputDto;
-import com.ejercicios.DB1jpa.persona.dto.PersonaOutputDto;
-import com.ejercicios.DB1jpa.services.ServicePerson;
+import com.ejercicios.DB1jpa.aplication.services.ServicePersonInterface;
+import com.ejercicios.DB1jpa.infraestructure.controler.dto.input.PersonaInputDto;
+import com.ejercicios.DB1jpa.infraestructure.controler.dto.output.PersonaOutputDto;
+import com.ejercicios.DB1jpa.aplication.services.ServicePerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class Controlador {
 
     @Autowired
-    ServicePerson servicePerson;
+    ServicePersonInterface servicePerson;
 
     public Controlador(ServicePerson servicePerson) {
         this.servicePerson = servicePerson;
@@ -31,11 +31,11 @@ public class Controlador {
         }
         return personaOD;
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("/delete/{id}")
     public void deletePerson(int id){
         servicePerson.deletePerson(id);
     }
-    @PutMapping("/putP")
+    @PutMapping("{id}")
     public PersonaOutputDto updatePerson(@RequestBody PersonaInputDto personaInputDto, @RequestParam int id){
         return servicePerson.updatePerson(personaInputDto, id);
     }

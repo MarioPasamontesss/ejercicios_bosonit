@@ -1,6 +1,6 @@
-package com.ejercicios.DB1jpa.persona.dto;
+package com.ejercicios.DB1jpa.infraestructure.controler.dto.output;
 
-import com.ejercicios.DB1jpa.persona.Persona;
+import com.ejercicios.DB1jpa.domain.entity.Persona;
 import com.sun.istack.NotNull;
 import lombok.Data;
 

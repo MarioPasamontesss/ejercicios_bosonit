@@ -1,6 +1,6 @@
-package com.ejercicios.DB1jpa.persona;
+package com.ejercicios.DB1jpa.domain.entity;
 
-import com.ejercicios.DB1jpa.persona.dto.PersonaInputDto;
+import com.ejercicios.DB1jpa.infraestructure.controler.dto.input.PersonaInputDto;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +16,8 @@ import java.util.Date;
 @Entity
 public class Persona {
 
-    @Id
     @GeneratedValue
-    @JoinColumn(name = "Identificador")
+    @Id
     int id_persona;
     @NotNull
     String usuario;

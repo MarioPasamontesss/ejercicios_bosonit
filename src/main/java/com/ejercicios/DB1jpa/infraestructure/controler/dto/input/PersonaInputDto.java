@@ -1,4 +1,4 @@
-package com.ejercicios.DB1jpa.persona.dto;
+package com.ejercicios.DB1jpa.infraestructure.controler.dto.input;
 
 import com.sun.istack.NotNull;
 import lombok.Data;

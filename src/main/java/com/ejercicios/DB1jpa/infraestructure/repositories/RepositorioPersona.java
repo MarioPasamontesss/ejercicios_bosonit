@@ -1,4 +1,4 @@
-package com.ejercicios.DB1jpa.infraestructure.controler.repositories;
+package com.ejercicios.DB1jpa.infraestructure.repositories;
 
 import com.ejercicios.DB1jpa.domain.entity.Persona;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface RepositorioPersona extends JpaRepository<Persona, Integer> {
-    List<Persona> findByName(String name);
+    List<Persona> findByUsuario(String user);
+
 }

@@ -3,6 +3,7 @@ package com.ejercicios.DB1jpa.aplication.services;
 import com.ejercicios.DB1jpa.common.exceptions.NotFExceptions;
 import com.ejercicios.DB1jpa.domain.entity.AsignaturaEntity;
 import com.ejercicios.DB1jpa.domain.entity.Persona;
+import com.ejercicios.DB1jpa.domain.entity.ProfesorEntity;
 import com.ejercicios.DB1jpa.domain.entity.StudentEntity;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.AsignaturasInputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.StudentInputDto;
@@ -10,6 +11,7 @@ import com.ejercicios.DB1jpa.infraestructure.dto.input.AsignaturaIdInputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaStudentOutputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.StudentOutputDto;
 import com.ejercicios.DB1jpa.infraestructure.repositories.RepositorioAsignatura;
+import com.ejercicios.DB1jpa.infraestructure.repositories.RepositorioProfesor;
 import com.ejercicios.DB1jpa.infraestructure.repositories.RepositorioStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +26,17 @@ public class ServiceStudent implements com.ejercicios.DB1jpa.aplication.services
     RepositorioStudent repositorioStudent;
     @Autowired
     RepositorioAsignatura repositorioAsignatura;
+    @Autowired
+    RepositorioProfesor repositorioProfesor;
 
     @Override
     public StudentOutputDto addStudent(StudentInputDto studentID) throws NotFExceptions{
         StudentEntity studentEntity = new StudentEntity(studentID);
+        for(ProfesorEntity profesor : repositorioProfesor.findAll()){
+            if(profesor.getPersona().getId_persona() == studentEntity.getPersona().getId_persona()){
+                throw new NotFExceptions("No sepuede agregar, ya pertenece este id a un profesor");
+            }
+        }
         repositorioStudent.save(studentEntity);
         StudentOutputDto studentOutputDto = new StudentOutputDto(studentEntity);
         return studentOutputDto;

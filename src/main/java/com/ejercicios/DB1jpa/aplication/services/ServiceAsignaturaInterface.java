@@ -15,5 +15,5 @@ public interface ServiceAsignaturaInterface {
     void deleteAsignatura(String id) throws NotFExceptions;
     List<AsignaturasOutputDto> findAll();
     AsignaturasOutputDto findIdAsignatura(String id);
-    //List<AsignaturaEntity> finStudentListAsignaturas(String id);
+    List<AsignaturaEntity> finStudentListAsignaturas(String id);
 }

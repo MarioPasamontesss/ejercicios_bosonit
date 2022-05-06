@@ -38,8 +38,9 @@ public class StudentEntity {
     int num_hours_week;
     @Column(name = "comentarios")
     String coments;
-    //@OneToMany
-    String profesor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_profesor")
+    ProfesorEntity profesor;
     @Column(name = "rama")
     String branch;
     @OneToMany

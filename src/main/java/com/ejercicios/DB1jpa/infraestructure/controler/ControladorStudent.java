@@ -91,7 +91,6 @@ public class ControladorStudent {
         serviceStudent.designarListAsignaturas(asignaturaEntityList, id);
     }
 
-
     @GetMapping("/findStudentAll")
     public List<StudentOutputDto> findStudentsAll(){
         try {

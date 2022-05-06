@@ -6,15 +6,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class Db1jpaApplication {
+public class MainApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Db1jpaApplication.class, args);
+		SpringApplication.run(MainApplication.class, args);
 	}
-	@Bean
+	/*@Bean
 	ServicePerson servicePer1(){
 		ServicePerson servicePerson = new ServicePerson();
 		return  servicePerson;
-	}
+	}*/
 
 }

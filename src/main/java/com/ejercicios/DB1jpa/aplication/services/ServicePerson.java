@@ -43,6 +43,16 @@ public class ServicePerson implements ServicePersonInterface{
     public void deletePerson(int id) throws NotFExceptions{
         boolean existe = repositorioPersona.existsById(id);
         if(existe){
+            for(StudentEntity studentEntity : repositorioStudent.findAll()){
+                if(studentEntity.getPersona().getId_persona() == id){
+                    throw new NotFExceptions("No se puede eliminar debido a que pertenece a un estudiante");
+                }
+            }
+            for (ProfesorEntity profesor : repositorioProfesor.findAll()){
+                if(profesor.getPersona().getId_persona() == id){
+                    throw new NotFExceptions("No se puede eliminar debido a que pertenece a un profesor");
+                }
+            }
             repositorioPersona.deleteById(id);
         }else{
             throw new NotFExceptions("No se han encontrado registros con ese id");

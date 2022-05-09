@@ -23,10 +23,10 @@ public class StudentOutputDto {
 
     public StudentOutputDto(StudentEntity studentEntity){
         setId_student(studentEntity.getId_student());
-        setPersona(studentEntity.getPersona());
+        setPersona(studentEntity.getPersona().getId_persona());
         setNum_hours_week(studentEntity.getNum_hours_week());
         setComents(studentEntity.getComents());
-        setProfesor(studentEntity.getProfesor());
+        setProfesor(studentEntity.getProfesor().getId_profesor());
         setBranch(studentEntity.getBranch());
         setAsignaturas(studentEntity.getAsignaturas());
     }

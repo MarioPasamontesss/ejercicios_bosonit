@@ -11,8 +11,8 @@ import java.util.List;
 @Data
 public class AsignaturasInputDto {
     String id_asignatura;
-    String profesor;
-    String student;
+    ProfesorEntity profesor;
+    StudentEntity student;
     String asignatura;
     String coments;
     Date initial_date;

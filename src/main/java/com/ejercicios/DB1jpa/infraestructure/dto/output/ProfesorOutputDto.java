@@ -15,7 +15,7 @@ public class ProfesorOutputDto {
 
     public ProfesorOutputDto (ProfesorEntity profesorEntity){
         setId_profesor(profesorEntity.getId_profesor());
-        setPersona(profesorEntity.getPersona());
+        setPersona(profesorEntity.getPersona().getId_persona());
         setComents(profesorEntity.getComents());
         setBranch(profesorEntity.getBranch());
     }

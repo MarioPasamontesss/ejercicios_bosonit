@@ -34,10 +34,6 @@ public class ControladorPersona {
         return personaOD;
     }
 
-    /*@RestController("profesor/{id}")
-    public ProfesorOutputDto getProfesor(@PathVariable int id){
-    }*/
-
     @DeleteMapping("/delete/{id}")
     public void deletePerson(@PathVariable int id) {
         servicePerson.deletePerson(id);
@@ -88,4 +84,8 @@ public class ControladorPersona {
     public List<PersonaOutputDto> findAlloutputType() {
         return servicePerson.findAlloutputType();
     }
+
+    /*@RestController("profesor/{id}")
+    public ProfesorOutputDto getProfesor(@PathVariable int id){
+    }*/
 }

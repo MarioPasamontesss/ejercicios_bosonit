@@ -32,7 +32,7 @@ public class StudentEntity {
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "id_student")
-    int persona;
+    Persona persona;
 
     @Column(name = "horas_semanales", nullable = false)
     int num_hours_week;
@@ -40,7 +40,7 @@ public class StudentEntity {
     String coments;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_profesor")
-    String profesor;
+    ProfesorEntity profesor;
     @Column(name = "rama")
     String branch;
     @OneToMany

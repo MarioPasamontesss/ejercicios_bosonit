@@ -24,7 +24,7 @@ public class AsignaturasOutputDto {
     public AsignaturasOutputDto(AsignaturaEntity asignaturaEntity){
         setId_asignatura(asignaturaEntity.getId_asignatura());
         setProfesor(asignaturaEntity.getProfesor());
-        setStudent(asignaturaEntity.getStudent());
+        setStudent(asignaturaEntity.getStudent().getId_student());
         setAsignatura(asignaturaEntity.getAsignatura());
         setComents(asignaturaEntity.getComents());
         setInitial_date(asignaturaEntity.getInitial_date());

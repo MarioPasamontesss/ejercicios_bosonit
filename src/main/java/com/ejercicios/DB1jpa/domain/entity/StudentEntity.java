@@ -30,7 +30,7 @@ public class StudentEntity {
             })
     String id_student;
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne
     @JoinColumn(name = "id_student")
     Persona persona;
 
@@ -50,10 +50,12 @@ public class StudentEntity {
 
     public StudentEntity(StudentInputDto student){
         setId_student(student.getId_student());
-        setPersona(student.getPersona());
+        Persona persona1 = new Persona();
+        persona1.setId_persona(student.getId_persona());
         setNum_hours_week(student.getNum_hours_week());
         setComents(student.getComents());
-        setProfesor(student.getId_profesor());
+        ProfesorEntity profesorEntity = new ProfesorEntity();
+        profesorEntity.setId_profesor(student.getId_profesor());
         setBranch(student.getBranch());
         setAsignaturas(student.getAsignaturas());
     }

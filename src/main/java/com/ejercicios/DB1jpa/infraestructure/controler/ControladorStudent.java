@@ -28,8 +28,7 @@ public class ControladorStudent {
     @PostMapping("/studentadd")
     public StudentOutputDto addStudent(@RequestBody StudentInputDto studentInputDto){
         try {
-            StudentOutputDto studentOutputDto = serviceStudent.addStudent(studentInputDto);
-            return studentOutputDto;
+            return serviceStudent.addStudent(studentInputDto);
         }catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -23,7 +23,7 @@ public class AsignaturasOutputDto {
 
     public AsignaturasOutputDto(AsignaturaEntity asignaturaEntity){
         setId_asignatura(asignaturaEntity.getId_asignatura());
-        setProfesor(asignaturaEntity.getProfesor());
+        setProfesor(asignaturaEntity.getProfesor().getId_profesor());
         setStudent(asignaturaEntity.getStudent().getId_student());
         setAsignatura(asignaturaEntity.getAsignatura());
         setComents(asignaturaEntity.getComents());

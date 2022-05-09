@@ -4,6 +4,7 @@ import com.ejercicios.DB1jpa.sequences.StringPrefixedSequenceIdGenerator;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.PersonaInputDto;
 import com.sun.istack.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -15,17 +16,10 @@ import java.util.Date;
 @Data
 @Slf4j
 @Entity
+@NoArgsConstructor
 public class Persona implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE/*, generator = "ausencias_seq"*/)
-    /*@GenericGenerator(
-            name = "ausencias_seq",
-            strategy = "com.ejercicios.DB1jpa.sequences.StringPrefixedSequenceIdGenerator",
-            parameters = {
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "AUS"),
-                    @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%08d")
-            })*/
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     int id_persona;
     @NotNull
     @Column(nullable = false)
@@ -63,8 +57,6 @@ public class Persona implements Serializable {
     @JoinColumn(name = "id_persona")
     ProfesorEntity profesor;
      */
-    public Persona(){
-    }
     public Persona(PersonaInputDto personaInputDto){
         setId_persona(personaInputDto.getId_persona());
         setName(personaInputDto.getName());

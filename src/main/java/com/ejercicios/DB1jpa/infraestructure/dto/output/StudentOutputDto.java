@@ -17,7 +17,7 @@ public class StudentOutputDto {
     int persona;
     int num_hours_week;
     String coments;
-    String profesor;
+    String id_profesor;
     String branch;
     List<AsignaturaEntity> asignaturas;
 
@@ -26,7 +26,7 @@ public class StudentOutputDto {
         setPersona(studentEntity.getPersona().getId_persona());
         setNum_hours_week(studentEntity.getNum_hours_week());
         setComents(studentEntity.getComents());
-        setProfesor(studentEntity.getProfesor().getId_profesor());
+        setId_profesor(studentEntity.getProfesor().getId_profesor());
         setBranch(studentEntity.getBranch());
         setAsignaturas(studentEntity.getAsignaturas());
     }

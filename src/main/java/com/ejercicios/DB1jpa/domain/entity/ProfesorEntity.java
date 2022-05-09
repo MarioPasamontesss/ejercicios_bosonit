@@ -27,7 +27,7 @@ public class ProfesorEntity {
                     @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%08d")
             })
     String id_profesor;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne
     @JoinColumn(name = "ID_PERSONA")
     Persona persona;
     String coments;
@@ -35,10 +35,11 @@ public class ProfesorEntity {
     String branch;
 
 
-
     public ProfesorEntity(ProfesorInputDto profesor){
         setId_profesor(profesor.getId_profesor());
-        setPersona(profesor.getPersona());
+        Persona persona1 = new Persona();
+        persona1.setId_persona(profesor.getId_persona());
+        setPersona(persona1);
         setComents(profesor.getComents());
         setBranch(profesor.getBranch());
     }

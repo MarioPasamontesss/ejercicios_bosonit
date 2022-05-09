@@ -4,6 +4,7 @@ package com.ejercicios.DB1jpa.aplication.services;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.PersonaInputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaOutputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaStudentOutputDto;
+import com.ejercicios.DB1jpa.infraestructure.dto.output.ProfesorOutputDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -17,6 +18,6 @@ public interface ServicePersonInterface{
     List<PersonaOutputDto> findNamePerson(String name) throws Exception;
     ResponseEntity findNamePersonoutputType(String name,String outputType);
     List<PersonaOutputDto> findAll();
-    List<PersonaOutputDto> findAlloutputType();
+    //List<PersonaOutputDto> findAlloutputType();
 
 }

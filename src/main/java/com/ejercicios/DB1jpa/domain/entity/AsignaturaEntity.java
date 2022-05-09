@@ -32,10 +32,10 @@ public class AsignaturaEntity {
     String id_asignatura;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profesor_id")
-    ProfesorEntity profesor;
+    String profesor;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_student")
-    StudentEntity student;
+    String student;
     String asignatura;
     String coments;
     @Column(nullable = false)

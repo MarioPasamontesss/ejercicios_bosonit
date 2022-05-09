@@ -25,7 +25,7 @@ public class ServiceProfesor implements ServiceProfesorInterface {
     public ProfesorOutputDto addProfesor(ProfesorInputDto profesorInputDto) throws NotFExceptions {
         ProfesorEntity profesor = new ProfesorEntity(profesorInputDto);
         for(StudentEntity studentEntity : repositorioStudent.findAll()){
-            if(profesor.getPersona().getId_persona() == studentEntity.getPersona().getId_persona()){
+            if(profesor.getPersona() == studentEntity.getPersona()){
                 throw new NotFExceptions("No sepuede agregar, ya pertenece este id a un estudiante");
             }
         }

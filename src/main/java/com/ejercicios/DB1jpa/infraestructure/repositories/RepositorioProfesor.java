@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RepositorioProfesor extends JpaRepository<ProfesorEntity, String> {
 
-    Persona findByPersona(Persona p);
+    Persona findByPersona(int id);
 }

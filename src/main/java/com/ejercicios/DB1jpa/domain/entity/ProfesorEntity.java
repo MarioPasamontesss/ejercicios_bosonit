@@ -29,7 +29,7 @@ public class ProfesorEntity {
     String id_profesor;
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "ID_PERSONA")
-    Persona persona;
+    int persona;
     String coments;
     @Column(nullable = false)
     String branch;

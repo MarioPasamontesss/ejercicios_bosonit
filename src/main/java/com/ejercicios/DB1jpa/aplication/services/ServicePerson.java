@@ -44,12 +44,12 @@ public class ServicePerson implements ServicePersonInterface{
         boolean existe = repositorioPersona.existsById(id);
         if(existe){
             for(StudentEntity studentEntity : repositorioStudent.findAll()){
-                if(studentEntity.getPersona().getId_persona() == id){
+                if(studentEntity.getPersona() == id){
                     throw new NotFExceptions("No se puede eliminar debido a que pertenece a un estudiante");
                 }
             }
             for (ProfesorEntity profesor : repositorioProfesor.findAll()){
-                if(profesor.getPersona().getId_persona() == id){
+                if(profesor.getPersona() == id){
                     throw new NotFExceptions("No se puede eliminar debido a que pertenece a un profesor");
                 }
             }
@@ -93,8 +93,8 @@ public class ServicePerson implements ServicePersonInterface{
                 PersonaOutputDto personaOutputDto = new PersonaOutputDto(persona);
                 return ResponseEntity.ok(personaOutputDto);
             }else if(outputType == "full"){
-                Persona personaStudent = repositorioStudent.findByPersona(persona);
-                Persona personaProfesor = repositorioProfesor.findByPersona(persona);
+                Persona personaStudent = repositorioStudent.findByPersona(persona.getId_persona());
+                Persona personaProfesor = repositorioProfesor.findByPersona(persona.getId_persona());
                 if(personaStudent != null){
                     return forStudent(personaStudent, persona);
                 }else if(personaProfesor != null){
@@ -110,7 +110,7 @@ public class ServicePerson implements ServicePersonInterface{
     public ResponseEntity forStudent(Persona personaStudent, Persona persona){
         List<StudentEntity> studentList = repositorioStudent.findAll();
         for(StudentEntity student : studentList){
-            if(student.getPersona().equals(personaStudent)){
+            if(student.getPersona() == personaStudent.getId_persona()){
                 PersonaStudentOutputDto personaStudentOutputDto = new PersonaStudentOutputDto(persona,student);
                 return ResponseEntity.ok(personaStudentOutputDto);
             }
@@ -120,7 +120,7 @@ public class ServicePerson implements ServicePersonInterface{
     public ResponseEntity forProfesor(Persona personaProfesor,Persona persona){
         List<ProfesorEntity> profesorList = repositorioProfesor.findAll();
         for(ProfesorEntity profesor : profesorList){
-            if(profesor.getPersona().equals(personaProfesor)){
+            if(profesor.getPersona() == personaProfesor.getId_persona()){
                 PersonaProfesorOutputDto personaProfesorOutputDto = new PersonaProfesorOutputDto(persona,profesor);
                 return ResponseEntity.ok(personaProfesorOutputDto);
             }
@@ -163,19 +163,19 @@ public class ServicePerson implements ServicePersonInterface{
         List<PersonaProfesorOutputDto> pProfesorOutputDtoList = new ArrayList<>();
         List<PersonaStudentOutputDto> pStudentOutputDtoList = new ArrayList<>();
         for (Persona persona : personaList) {
-            Persona personaStudent = repositorioStudent.findByPersona(persona);
-            Persona personaProfesor = repositorioProfesor.findByPersona(persona);
+            Persona personaStudent = repositorioStudent.findByPersona(persona.getId_persona());
+            Persona personaProfesor = repositorioProfesor.findByPersona(persona.getId_persona());
             if (personaStudent != null) {
                 List<StudentEntity> studentList = repositorioStudent.findAll();
                 for (StudentEntity student : studentList) {
-                    if (student.getPersona().equals(personaStudent)) {
+                    if (student.getPersona() == personaStudent.getId_persona()) {
                         pStudentOutputDtoList.add(new PersonaStudentOutputDto(persona, student));
                     }
                 }
             } else if (personaProfesor != null) {
                 List<ProfesorEntity> profesorList = repositorioProfesor.findAll();
                 for (ProfesorEntity profesor : profesorList) {
-                    if (profesor.getPersona().equals(personaStudent)) {
+                    if (profesor.getPersona() == personaProfesor.getId_persona()) {
                         pProfesorOutputDtoList.add(new PersonaProfesorOutputDto(persona, profesor));
                     }
                 }
@@ -191,6 +191,7 @@ public class ServicePerson implements ServicePersonInterface{
         }
         return personaOutputDtoList;
     }
+    @Override
     public List<PersonaOutputDto> findAlloutputType(){
         List<PersonaOutputDto>  personaOutputDtoList = new ArrayList<>();
         for (Persona persona : repositorioPersona.findAll()){

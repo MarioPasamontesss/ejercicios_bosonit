@@ -11,6 +11,7 @@ import com.ejercicios.DB1jpa.infraestructure.dto.input.AsignaturaIdInputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaStudentOutputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.StudentOutputDto;
 import com.ejercicios.DB1jpa.infraestructure.repositories.RepositorioAsignatura;
+import com.ejercicios.DB1jpa.infraestructure.repositories.RepositorioPersona;
 import com.ejercicios.DB1jpa.infraestructure.repositories.RepositorioProfesor;
 import com.ejercicios.DB1jpa.infraestructure.repositories.RepositorioStudent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,14 @@ public class ServiceStudent implements com.ejercicios.DB1jpa.aplication.services
     RepositorioAsignatura repositorioAsignatura;
     @Autowired
     RepositorioProfesor repositorioProfesor;
+    @Autowired
+    RepositorioPersona repositorioPersona;
 
     @Override
     public StudentOutputDto addStudent(StudentInputDto studentID) throws NotFExceptions{
         StudentEntity studentEntity = new StudentEntity(studentID);
         for(ProfesorEntity profesor : repositorioProfesor.findAll()){
-            if(profesor.getPersona().getId_persona() == studentEntity.getPersona().getId_persona()){
+            if(profesor.getPersona() == studentEntity.getPersona()){
                 throw new NotFExceptions("No sepuede agregar, ya pertenece este id a un profesor");
             }
         }
@@ -80,7 +83,7 @@ public class ServiceStudent implements com.ejercicios.DB1jpa.aplication.services
     @Override
     public PersonaStudentOutputDto findIdStudentFull(String id) throws Exception {
         StudentEntity studentEntity = repositorioStudent.findById(id).orElseThrow(() -> new Exception("Error"));
-        Persona personaEntity = studentEntity.getPersona();
+        Persona personaEntity = repositorioPersona.getById(studentEntity.getPersona());
         PersonaStudentOutputDto personaStudentOutputDto = new PersonaStudentOutputDto(personaEntity, studentEntity);
         return personaStudentOutputDto;
     }

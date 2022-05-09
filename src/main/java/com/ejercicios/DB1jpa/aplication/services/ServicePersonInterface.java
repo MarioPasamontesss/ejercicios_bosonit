@@ -17,5 +17,6 @@ public interface ServicePersonInterface{
     List<PersonaOutputDto> findNamePerson(String name) throws Exception;
     ResponseEntity findNamePersonoutputType(String name,String outputType);
     List<PersonaOutputDto> findAll();
+    List<PersonaOutputDto> findAlloutputType();
 
 }

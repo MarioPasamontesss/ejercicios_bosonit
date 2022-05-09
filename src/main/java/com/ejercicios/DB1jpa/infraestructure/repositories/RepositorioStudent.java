@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface RepositorioStudent extends JpaRepository<StudentEntity, String> {
-    Persona findByPersona(Persona p);
+    Persona findByPersona(int id);
 }

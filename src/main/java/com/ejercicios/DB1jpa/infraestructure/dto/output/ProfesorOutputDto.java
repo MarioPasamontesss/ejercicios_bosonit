@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProfesorOutputDto {
     String id_profesor;
-    Persona persona;
+    int persona;
     String coments;
     String branch;
 

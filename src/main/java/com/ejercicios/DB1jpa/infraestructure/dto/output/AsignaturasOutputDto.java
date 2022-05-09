@@ -13,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class AsignaturasOutputDto {
     String id_asignatura;
-    ProfesorEntity profesor;
-    StudentEntity student;
+    String profesor;
+    String student;
     String asignatura;
     String coments;
     Date initial_date;

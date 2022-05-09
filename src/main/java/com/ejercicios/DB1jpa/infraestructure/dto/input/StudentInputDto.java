@@ -10,10 +10,10 @@ import java.util.List;
 @Data
 public class StudentInputDto {
     String id_student;
-    Persona persona;
+    int persona;
     int num_hours_week;
     String coments;
-    ProfesorEntity id_profesor;
+    String id_profesor;
     String branch;
     List<AsignaturaEntity> asignaturas;
 }

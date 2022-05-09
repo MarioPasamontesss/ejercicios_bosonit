@@ -5,6 +5,7 @@ import com.ejercicios.DB1jpa.domain.entity.AsignaturaEntity;
 import com.ejercicios.DB1jpa.domain.entity.StudentEntity;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.AsignaturaIdInputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.StudentInputDto;
+import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaOutputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaStudentOutputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.StudentOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;

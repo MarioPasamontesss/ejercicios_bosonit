@@ -84,4 +84,8 @@ public class ControladorPersona {
          return servicePerson.findAll();
     }
 
+    @GetMapping("/findAllOutput")
+    public List<PersonaOutputDto> findAlloutputType() {
+        return servicePerson.findAlloutputType();
+    }
 }

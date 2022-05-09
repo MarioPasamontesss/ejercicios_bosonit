@@ -14,10 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 public class StudentOutputDto {
     String id_student;
-    Persona persona;
+    int persona;
     int num_hours_week;
     String coments;
-    ProfesorEntity profesor;
+    String profesor;
     String branch;
     List<AsignaturaEntity> asignaturas;
 

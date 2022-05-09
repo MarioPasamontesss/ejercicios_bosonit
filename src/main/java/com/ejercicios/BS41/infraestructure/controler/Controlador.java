@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Configuration
-@PropertySource("miconfiguracion.properties")
+//@PropertySource("miconfiguracion.properties")
 public class Controlador {
     @Value("${valor1}")
     String valor1;

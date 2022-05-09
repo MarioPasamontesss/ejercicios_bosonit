@@ -4,6 +4,7 @@ import com.ejercicios.DB1jpa.aplication.services.ServicePersonInterface;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.PersonaInputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaOutputDto;
 import com.ejercicios.DB1jpa.aplication.services.ServicePerson;
+import com.ejercicios.DB1jpa.infraestructure.dto.output.ProfesorOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/controlerPersona")
+@RequestMapping("/BS1/controlerPersona")
 public class ControladorPersona {
 
     @Autowired
@@ -32,6 +33,11 @@ public class ControladorPersona {
         }
         return personaOD;
     }
+
+    /*@RestController("profesor/{id}")
+    public ProfesorOutputDto getProfesor(@PathVariable int id){
+    }*/
+
     @DeleteMapping("/delete/{id}")
     public void deletePerson(@PathVariable int id) {
         servicePerson.deletePerson(id);

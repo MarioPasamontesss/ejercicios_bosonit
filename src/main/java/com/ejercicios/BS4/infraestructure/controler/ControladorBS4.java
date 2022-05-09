@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Configuration
 @RestController
 //@PropertySource("classpath: application.properties")
-//@ConfigurationProperties(prefix = "my")
-@ConfigurationProperties("application.properties")
-public class Controlador1 {
+@ConfigurationProperties(prefix = "my")
+//@ConfigurationProperties("application.properties")
+public class ControladorBS4 {
 
     @Value("${VAR1}")
     String VAR1;

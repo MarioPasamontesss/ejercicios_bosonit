@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.PostConstruct;
 
 @RestController
-@RequestMapping("perfil")
+@RequestMapping("BS41")
 public class Controlador2 {
 
     Perfil1 perfil1 = new Perfil1();

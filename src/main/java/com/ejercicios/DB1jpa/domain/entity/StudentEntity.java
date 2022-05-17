@@ -49,14 +49,22 @@ public class StudentEntity {
 
 
     public StudentEntity(StudentInputDto student){
-        setId_student(student.getId_student());
-        Persona persona1 = new Persona();
-        persona1.setId_persona(student.getId_persona());
-        setNum_hours_week(student.getNum_hours_week());
-        setComents(student.getComents());
-        ProfesorEntity profesorEntity = new ProfesorEntity();
-        profesorEntity.setId_profesor(student.getId_profesor());
-        setBranch(student.getBranch());
-        setAsignaturas(student.getAsignaturas());
+        this.id_student = student.getId_student();
+        this.num_hours_week = student.getNum_hours_week();
+        this.coments = student.getComents();
+        this.branch = student.getBranch();
+        asignaturas = student.getAsignaturas();
+    }
+    public StudentEntity(StudentInputDto inputDto, Persona persona, ProfesorEntity profesor) {
+        this.id_student = inputDto.getId_student();
+        this.num_hours_week = inputDto.getNum_hours_week();
+        this.coments = inputDto.getComents();
+        this.branch = inputDto.getBranch();
+        this.asignaturas = inputDto.getAsignaturas();
+        this.persona = persona;
+        this.profesor = profesor;
+    }
+    public StudentEntity(String id_student) {
+        this.id_student = id_student;
     }
 }

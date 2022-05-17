@@ -6,8 +6,7 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -58,18 +57,21 @@ public class Persona implements Serializable {
     ProfesorEntity profesor;
      */
     public Persona(PersonaInputDto personaInputDto){
-        setId_persona(personaInputDto.getId_persona());
-        setName(personaInputDto.getName());
-        setUsuario(personaInputDto.getUsuario());
-        setPassword(personaInputDto.getPassword());
-        setSurname(personaInputDto.getSurname());
-        setCompany_email(personaInputDto.getCompany_email());
-        setPersonal_email(personaInputDto.getPersonal_email());
-        setCity(personaInputDto.getCity());
-        setActive(personaInputDto.isActive());
-        setCreate_date(personaInputDto.getCreate_date());
-        setImagen_url(personaInputDto.getImagen_url());
-        setTermination_date(personaInputDto.getTermination_date());
+        setId_persona(personaInputDto.id_persona());
+        setName(personaInputDto.name());
+        setUsuario(personaInputDto.usuario());
+        setPassword(personaInputDto.password());
+        setSurname(personaInputDto.surname());
+        setCompany_email(personaInputDto.company_email());
+        setPersonal_email(personaInputDto.personal_email());
+        setCity(personaInputDto.city());
+        setActive(personaInputDto.active());
+        setCreate_date(personaInputDto.create_date());
+        setImagen_url(personaInputDto.imagen_url());
+        setTermination_date(personaInputDto.termination_date());
+    }
+    public Persona(int id_persona) {
+        this.id_persona = id_persona;
     }
 
 }

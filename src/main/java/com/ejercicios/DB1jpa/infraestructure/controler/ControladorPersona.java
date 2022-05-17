@@ -1,17 +1,25 @@
 package com.ejercicios.DB1jpa.infraestructure.controler;
 
 import com.ejercicios.DB1jpa.aplication.services.ServicePersonInterface;
+import com.ejercicios.DB1jpa.aplication.services.ServiceProfesorInterface;
+import com.ejercicios.DB1jpa.aplication.services.iFeignClient;
+import com.ejercicios.DB1jpa.domain.entity.Persona;
 import com.ejercicios.DB1jpa.domain.entity.ProfesorEntity;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.PersonaInputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaOutputDto;
 import com.ejercicios.DB1jpa.aplication.services.ServicePerson;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.ProfesorOutputDto;
+import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.persistence.EntityManager;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -21,12 +29,19 @@ public class ControladorPersona {
 
     @Autowired
     ServicePersonInterface servicePerson;
+    @Autowired
+    iFeignClient iFeignClient;
 
+    @Autowired
+    EntityManager em;
+    
     public ControladorPersona(ServicePersonInterface servicePerson) {
         this.servicePerson = servicePerson;
     }
 
+
     @PostMapping("/personadd")
+    @CrossOrigin(origins = "https://codepen.io/")
     public PersonaOutputDto addPerson(@RequestBody PersonaInputDto persona){
         PersonaOutputDto personaOD = null;
         try {
@@ -79,6 +94,7 @@ public class ControladorPersona {
         }
     }
     @GetMapping("/findAll")
+    @CrossOrigin(origins = "http://localhost:8080")
     public List<PersonaOutputDto> findPersonas(){
          return servicePerson.findAll();
     }
@@ -88,19 +104,42 @@ public class ControladorPersona {
         return servicePerson.findAlloutputType();
     }*/
 
-    @GetMapping("/profesor/{id}")
-    public ProfesorOutputDto getProfesor(@PathVariable String id){
-        String URL = "http://localhost:8081/BS1/controlerPersona/profesor" + id;
-        ResponseEntity<ProfesorOutputDto> responseEntity= new RestTemplate().getForEntity(URL, ProfesorOutputDto.class);
-        if (responseEntity.getStatusCode()== HttpStatus.OK)
-        { // Todo fue correcto
-            return responseEntity.getBody();
-        }
-        return null;
-    }
-    /*@GetMapping("/Profesortemplate/{code}")
+    @GetMapping("/Profesortemplate/{code}")
     ResponseEntity<ProfesorOutputDto> callGetProfesor(@PathVariable int code){
         ResponseEntity<ProfesorOutputDto> responseEntity= new RestTemplate().getForEntity("http://localhost:8081/BS1/controlerPersona/" + code, ProfesorOutputDto.class);
         return ResponseEntity.ok(responseEntity.getBody());
+    }
+    @GetMapping("/ProfesorFeign/{id}")
+    ResponseEntity<ProfesorOutputDto> callFeignProfesor(@PathVariable int id){
+    return iFeignClient.getProfesor(id);
+    }
+
+    /*@GetMapping("/get")
+    public ResponseEntity<List<Persona>> getData(@RequestParam(required=false,name="user") String user,
+                                                 @RequestParam(required=false,value="name") String name,
+                                                 @RequestParam(required=false,value="surname") String surname,
+                                                 @RequestParam(required=false) @DateTimeFormat(pattern="dd-MM-yyyy") Date createdDate, @RequestParam(required=false) String dateCondition			)
+    {
+        HashMap<String, Object> data=new HashMap<>();
+
+        if (user!=null)
+            data.put("id",user);
+        if (name!=null)
+            data.put("name",name);
+        if (surname!=null)
+            data.put("address",surname);
+        if (!dateCondition.equals("greater") && dateCondition.equals("less")){
+            dateCondition = "less";
+        }
+        if (dateCondition.equals("greater") && !dateCondition.equals("less"))
+            dateCondition="greater";
+        if (createdDate!=null)
+        {
+            data.put("created",createdDate);
+            data.put("dateCondition",dateCondition);
+        }
+
+        return servicePerson.getCreate_date(data);
+
     }*/
 }

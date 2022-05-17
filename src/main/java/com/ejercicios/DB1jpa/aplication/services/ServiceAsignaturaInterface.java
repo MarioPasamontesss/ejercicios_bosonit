@@ -4,6 +4,7 @@ import com.ejercicios.DB1jpa.common.exceptions.NotFExceptions;
 import com.ejercicios.DB1jpa.domain.entity.AsignaturaEntity;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.AsignaturasInputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.AsignaturasOutputDto;
+import com.ejercicios.DB1jpa.infraestructure.dto.output.ProfesorOutputDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

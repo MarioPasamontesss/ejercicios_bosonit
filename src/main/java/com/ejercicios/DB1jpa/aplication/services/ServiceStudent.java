@@ -33,41 +33,27 @@ public class ServiceStudent implements com.ejercicios.DB1jpa.aplication.services
     RepositorioPersona repositorioPersona;
 
     @Override
-    public StudentOutputDto addStudent(StudentInputDto inputDto) throws NotFExceptions{
-        System.out.println(inputDto);
-        StudentEntity studentEntity = new StudentEntity(inputDto);
-        for(ProfesorEntity profesor : repositorioProfesor.findAll()){
-            if(profesor.getPersona().getId_persona() == studentEntity.getPersona().getId_persona()){
-                throw new NotFExceptions("No sepuede agregar, ya pertenece este id a un estudiante");
-            }
-        }
-        repositorioStudent.save(studentEntity);
-        StudentOutputDto studentOutputDto = new StudentOutputDto(studentEntity);
-        return studentOutputDto;
-    }
-    /*
-       System.out.println(studentID);
-        String idp = studentID.getId_student();
-        for(ProfesorEntity profesorEntity : repositorioProfesor.findAll()){
-            if(profesorEntity.getId_profesor() == idp){
-                throw new NotFExceptions("No sepuede agregar, ya pertenece este id a un profesor");
-            }
-        }
-        try {
-            System.out.println(studentID);
-            StudentEntity student= repositorioStudent.findById(studentID.getId_student()).orElseThrow(() -> new Exception("Error en el id"));
-            if(student != null){
-                throw new NotFExceptions("No sepuede agregar, ya pertenece este id a un estudiante");
-            }else{
-                repositorioStudent.save(studentEntity);
-                StudentOutputDto studentOutputDto = new StudentOutputDto(studentEntity);
-                return studentOutputDto;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public StudentOutputDto addStudent(StudentInputDto inputDto) throws NotFExceptions {
 
-     */
+        Persona persona = new Persona(inputDto.getId_persona());
+        ProfesorEntity profesor = new ProfesorEntity(inputDto.getId_profesor());
+        StudentEntity studentEntity = new StudentEntity(inputDto, persona, profesor);
+
+        ProfesorEntity p =
+                repositorioProfesor
+                        .findById(inputDto.getId_profesor())
+                        .orElseThrow(() -> new NotFExceptions("Teacher don´t exist"));
+        StudentEntity s =
+                repositorioStudent
+                        .findById(inputDto.getId_student())
+                        .orElseThrow(() -> new NotFExceptions("Student don´t exist"));
+        if (p.getPersona().getId_persona() == studentEntity.getPersona().getId_persona())
+            throw new NotFExceptions("No se puede agregar, ya pertenece este id a un profesor");
+        else if(s.getPersona().getId_persona() == studentEntity.getPersona().getId_persona())
+            throw new NotFExceptions("No se puede agregar, ya pertenece este id a un estudiante");
+        repositorioStudent.save(studentEntity);
+        return new StudentOutputDto(studentEntity);
+    }
     @Override
     public StudentOutputDto updateStudent(StudentInputDto studentID, String id) throws NotFExceptions{
         boolean existe = repositorioStudent.existsById(id);
@@ -99,22 +85,23 @@ public class ServiceStudent implements com.ejercicios.DB1jpa.aplication.services
         return studentOutputDtoList;
     }
     @Override
-    public StudentOutputDto findIdStudent(String id) throws Exception {
-            StudentEntity studentEntity = repositorioStudent.findById(id).orElseThrow(() -> new Exception("Error"));
-            StudentOutputDto studentOutputDto = new StudentOutputDto(studentEntity);
-            return studentOutputDto;
+    public StudentOutputDto findIdStudent(String id) {
+            StudentEntity studentEntity = repositorioStudent.findById(id).orElseThrow(() -> new NotFExceptions("Error"));
+            return new StudentOutputDto(studentEntity);
     }
     @Override
     public PersonaStudentOutputDto findIdStudentFull(String id) throws Exception {
         StudentEntity studentEntity = repositorioStudent.findById(id).orElseThrow(() -> new Exception("Error"));
         Persona personaEntity = repositorioPersona.getById(studentEntity.getPersona().getId_persona());
-        PersonaStudentOutputDto personaStudentOutputDto = new PersonaStudentOutputDto(personaEntity, studentEntity);
-        return personaStudentOutputDto;
+        return new PersonaStudentOutputDto(personaEntity, studentEntity);
     }
     @Override
     public void modificarListAsignaturas(List<AsignaturaIdInputDto> listaAsisg, String id){
         try {
-            StudentEntity student = repositorioStudent.findById(id).orElseThrow(() -> new Exception("Error"));
+            StudentEntity student =
+                    repositorioStudent
+                            .findById(id)
+                            .orElseThrow(() -> new Exception("Error"));
 
             for(AsignaturaIdInputDto a : listaAsisg){
                 for(AsignaturaEntity asignaturaEntity : repositorioAsignatura.findAll()){
@@ -132,7 +119,10 @@ public class ServiceStudent implements com.ejercicios.DB1jpa.aplication.services
     @Override
     public void designarListAsignaturas(List<AsignaturaIdInputDto> listaAsisg, String id){
         try {
-            StudentEntity student = repositorioStudent.findById(id).orElseThrow(() -> new Exception("Error"));
+            StudentEntity student =
+                    repositorioStudent
+                            .findById(id)
+                            .orElseThrow(() -> new Exception("Error"));
 
             for(AsignaturaIdInputDto a : listaAsisg){
                 for(AsignaturaEntity asignaturaEntity : repositorioAsignatura.findAll()){

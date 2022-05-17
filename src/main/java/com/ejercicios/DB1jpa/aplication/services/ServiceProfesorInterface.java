@@ -1,8 +1,10 @@
 package com.ejercicios.DB1jpa.aplication.services;
 
 import com.ejercicios.DB1jpa.common.exceptions.NotFExceptions;
+import com.ejercicios.DB1jpa.domain.entity.ProfesorEntity;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.ProfesorInputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.ProfesorOutputDto;
+//import org.springframework.cloud.openfeign.FeignClient;
 
 import java.util.List;
 

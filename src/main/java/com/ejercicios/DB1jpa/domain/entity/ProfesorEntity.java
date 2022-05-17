@@ -36,11 +36,14 @@ public class ProfesorEntity {
 
 
     public ProfesorEntity(ProfesorInputDto profesor){
-        setId_profesor(profesor.getId_profesor());
+        this.id_profesor = profesor.getId_profesor();
         Persona persona1 = new Persona();
         persona1.setId_persona(profesor.getId_persona());
         setPersona(persona1);
         setComents(profesor.getComents());
         setBranch(profesor.getBranch());
+    }
+    public ProfesorEntity(String id_profesor) {
+        this.id_profesor = id_profesor;
     }
 }

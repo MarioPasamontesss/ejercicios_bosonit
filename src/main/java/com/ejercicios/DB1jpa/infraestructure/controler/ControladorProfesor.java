@@ -2,7 +2,7 @@ package com.ejercicios.DB1jpa.infraestructure.controler;
 
 import com.ejercicios.DB1jpa.aplication.services.ServicePersonInterface;
 import com.ejercicios.DB1jpa.aplication.services.ServiceProfesorInterface;
-import com.ejercicios.DB1jpa.aplication.services.iFeignClient;
+//import com.ejercicios.DB1jpa.aplication.services.iFeignClient;
 import com.ejercicios.DB1jpa.domain.entity.ProfesorEntity;
 import com.ejercicios.DB1jpa.infraestructure.dto.input.ProfesorInputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.ProfesorOutputDto;

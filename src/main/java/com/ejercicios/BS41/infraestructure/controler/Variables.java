@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Variables {
-    @Value("${URL}")
+    /*@Value("${URL}")
     String url;
     @Value("${password}")
     String password;
@@ -15,5 +15,5 @@ public class Variables {
     public String getVariables(){
         return "URL:" + url + " password: " + password;
     }
-
+*/
 }

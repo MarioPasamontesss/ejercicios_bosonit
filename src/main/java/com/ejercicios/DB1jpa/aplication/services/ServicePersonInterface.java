@@ -13,16 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ServicePersonInterface{
-    PersonaOutputDto addPersona(PersonaInputDto personaID) throws Exception;
+    Persona addPersona(Persona persona) throws Exception;
     void deletePerson(int i);
-    PersonaOutputDto updatePerson(PersonaInputDto personaInputDto, int id);
-    PersonaOutputDto findByIdPerson(int id) throws Exception;
+    Persona updatePerson(Persona persona, int id);
+    Persona findByIdPerson(int id) throws Exception;
     ResponseEntity findByIdPersonOutputType(int id, String ouputType);
-    List<PersonaOutputDto> findNamePerson(String name) throws Exception;
+    List<Persona> findNamePerson(String name) throws Exception;
     ResponseEntity findNamePersonoutputType(String name,String outputType);
-    List<PersonaOutputDto> findAll();
+    List<Persona> findAll();
     ProfesorEntity findProfesor(String id);
     //List<PersonaOutputDto> findAlloutputType();
     //ResponseEntity<List<Persona>> getCreate_date(HashMap<String, Object> conditions);
-
 }

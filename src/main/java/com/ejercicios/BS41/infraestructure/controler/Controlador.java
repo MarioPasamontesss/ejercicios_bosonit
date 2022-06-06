@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Configuration
 //@PropertySource("miconfiguracion.properties")
 public class Controlador {
-    @Value("${valor1}")
+   /*@Value("${valor1}")
     String valor1;
     @Value("${valor2}")
     String valor2;
@@ -20,6 +20,6 @@ public class Controlador {
         return   valor1 +  valor2;
     }
 
-
+*/
 
 }

@@ -15,7 +15,7 @@ public class Controlador2 {
     Perfil1 perfil1 = new Perfil1();
     Perfil2 perfil2 = new Perfil2();
 
-    @PostConstruct
+    /*@PostConstruct
     public void mostrar(){
         System.out.println(perfil1.perfil1 + " " +  perfil2.perfil2);
     }
@@ -28,5 +28,5 @@ public class Controlador2 {
     public Perfil2 getString2(){
         perfil2.miFuncion();
         return perfil2;
-    }
+    }*/
 }

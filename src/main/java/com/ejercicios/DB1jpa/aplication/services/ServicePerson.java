@@ -3,8 +3,6 @@ package com.ejercicios.DB1jpa.aplication.services;
 import com.ejercicios.DB1jpa.domain.entity.Persona;
 import com.ejercicios.DB1jpa.domain.entity.ProfesorEntity;
 import com.ejercicios.DB1jpa.domain.entity.StudentEntity;
-import com.ejercicios.DB1jpa.infraestructure.dto.input.PersonaInputDto;
-import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaOutputDto;
 import com.ejercicios.DB1jpa.common.exceptions.NotFExceptions;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaProfesorOutputDto;
 import com.ejercicios.DB1jpa.infraestructure.dto.output.PersonaStudentOutputDto;
@@ -15,14 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,35 +29,17 @@ public class ServicePerson implements ServicePersonInterface{
     RepositorioProfesor repositorioProfesor;
     @Autowired
     RepositorioStudent repositorioStudent;
-    @PersistenceContext
-    private EntityManager entityManager;
+
     @Override
-    public PersonaOutputDto addPersona(PersonaInputDto persona) throws NotFExceptions{
-        if(persona.usuario().length() < 6 || persona.usuario().length()>10){
+    public Persona addPersona(Persona persona) throws NotFExceptions{
+        if(persona.getUsuario().length() < 6 || persona.getUsuario().length()>10){
             throw new NotFExceptions("El usuario debe contener entre 6 y 10 caracteres");
         }else{
-            Persona person = new Persona(persona);
-            repositorioPersona.save(person);
-            PersonaOutputDto personaOD = PersonaConstructor(person);
-            return personaOD;
+            //Persona person = new Persona(persona);
+            return  repositorioPersona.save(persona);
         }
     }
-    public PersonaOutputDto PersonaConstructor(Persona p){
-         PersonaOutputDto personaOutputDto = new PersonaOutputDto(
-                 p.getId_persona(),
-                 p.getUsuario(),
-                 p.getPassword(),
-                 p.getName(),
-                 p.getSurname(),
-                 p.getCompany_email(),
-                 p.getPersonal_email(),
-                 p.getCity(),
-                 p.isActive(),
-                 p.getCreate_date(),
-                 p.getImagen_url(),
-                 p.getTermination_date());
-         return personaOutputDto;
-    }
+
     @Override
     public void deletePerson(int id) throws NotFExceptions{
         boolean existe = repositorioPersona.existsById(id);
@@ -86,28 +60,22 @@ public class ServicePerson implements ServicePersonInterface{
         }
         }
     @Override
-    public PersonaOutputDto updatePerson(PersonaInputDto personaInputDto, int id){
-        boolean existe = repositorioPersona.existsById(id);
-        if(existe){
-            if(personaInputDto.usuario().length() < 6 || personaInputDto.usuario().length()>10) {
+    public Persona updatePerson(Persona persona, int id){
+        if(repositorioPersona.existsById(id)){
+            if(persona.getUsuario().length() < 6 || persona.getUsuario().length()>10) {
                 throw new NotFExceptions("El usuario debe contener entre 6 y 10 caracteres");
             }else {
                 repositorioPersona.deleteById(id);
-                Persona persona = new Persona(personaInputDto);
-                repositorioPersona.save(persona);
-                PersonaOutputDto personaOutputDto = PersonaConstructor(persona);
-                return personaOutputDto;
+                return repositorioPersona.save(persona);
             }
         }else{
             throw new NotFExceptions("No se han encontrado registros con ese id");
         }
     }
     @Override
-    public PersonaOutputDto findByIdPerson(int id) throws Exception{
+    public Persona findByIdPerson(int id) throws Exception{
         try {
-            Persona persona = repositorioPersona.findById(id).orElseThrow(() -> new Exception("Error"));
-            PersonaOutputDto personaOutputDto = PersonaConstructor(persona);
-            return personaOutputDto;
+            return repositorioPersona.findById(id).orElseThrow(() -> new Exception("Error"));
         }catch (NotFExceptions e){
             throw new NotFExceptions("No se han encontrado registros con ese id");
         }
@@ -117,8 +85,7 @@ public class ServicePerson implements ServicePersonInterface{
         try {
             Persona persona = repositorioPersona.findById(id).orElseThrow(() -> new Exception("Error"));
             if(outputType == "simple"){
-                PersonaOutputDto personaOutputDto = PersonaConstructor(persona);
-                return ResponseEntity.ok(personaOutputDto);
+                return ResponseEntity.ok(persona);
             }else if(outputType == "full"){
                 Persona personaStudent = repositorioStudent.findByPersona(persona.getId_persona());
                 Persona personaProfesor = repositorioProfesor.findByPersona(persona.getId_persona());
@@ -155,14 +122,10 @@ public class ServicePerson implements ServicePersonInterface{
         return ResponseEntity.badRequest().body("La persona no coincide");
     }
     @Override
-    public List<PersonaOutputDto> findNamePerson(String name) throws Exception{
+    public List<Persona> findNamePerson(String name) throws Exception{
         try{
-            List<PersonaOutputDto>  personaOutputDtoList = new ArrayList<>();
             List<Persona> personaList =  repositorioPersona.findByUsuario(name);
-            for(Persona persona : personaList){
-                personaOutputDtoList.add(PersonaConstructor(persona));
-            }
-            return personaOutputDtoList;
+            return personaList;
         }catch (Exception e){
             throw new RuntimeException(e);
         }
@@ -171,12 +134,8 @@ public class ServicePerson implements ServicePersonInterface{
     public ResponseEntity findNamePersonoutputType(String name,String outputType) {
         if (outputType == "simple") {
             try {
-                List<PersonaOutputDto> personaOutputDtoList = new ArrayList<>();
                 List<Persona> personaList = repositorioPersona.findByUsuario(name);
-                for (Persona persona : personaList) {
-                    personaOutputDtoList.add(PersonaConstructor(persona));
-                }
-                return ResponseEntity.ok(personaOutputDtoList);
+                return ResponseEntity.ok(personaList);
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body("Error");
             }
@@ -211,21 +170,10 @@ public class ServicePerson implements ServicePersonInterface{
         return ResponseEntity.badRequest().body("Error");
     }
     @Override
-    public List<PersonaOutputDto> findAll(){
-        List<PersonaOutputDto>  personaOutputDtoList = new ArrayList<>();
-        for (Persona persona : repositorioPersona.findAll()){
-            personaOutputDtoList.add(PersonaConstructor(persona));
-        }
-        return personaOutputDtoList;
+    public List<Persona> findAll(){
+        List<Persona>  personaList =repositorioPersona.findAll();
+        return personaList;
     }
-    /* public List<PersonaOutputDto> findAlloutputType(){
-     List<PersonaOutputDto>  personaOutputDtoList = new ArrayList<>();
-     for (Persona persona : repositorioPersona.findAll()){
-         personaOutputDtoList.add(new PersonaOutputDto(persona));
-     }
-     return personaOutputDtoList;
-    }
-    */
     @Override
     public ProfesorEntity findProfesor(String id){
         ProfesorEntity profesor;
@@ -236,42 +184,10 @@ public class ServicePerson implements ServicePersonInterface{
         }
         return profesor;
     }
+
     /*@Override
     public ResponseEntity<List<Persona>> getCreate_date(HashMap<String, Object> conditions) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Persona> query = cb.createQuery(Persona.class);
-        Root<Persona> root = query.from(Persona.class);
-        List<Predicate> predicateList = new ArrayList<>();
-        conditions.forEach((field, value) ->
-        {
-            switch (field) {
-                case "user":
-                    predicateList.add(cb.equal(root.get(field), (String) value));
-                    break;
-                case "name":
-                    predicateList.add(cb.equal(root.get(field),"%"+ (String) value + "%"));
-                    break;
-                case "surname":
-                    predicateList.add(cb.equal(root.get(field),"%" + (String) value+ "%"));
-                    break;
-                case "create_date":
-                    String dateCondition=(String) conditions.get("dateCondition");
-                        switch (dateCondition) {
-                            case "greater":
-                                predicateList.add(cb.greaterThan(root.<Date>get(field), (Date) value));
-                                break;
-                            case "less":
-                                predicateList.add(cb.lessThan(root.<Date>get(field), (Date) value));
-                                break;
-                        }
-                    break;
-                default:
-                    throw new NotFExceptions("Escriba bien el campo escrito");
-                    }
-
-        });
-            query.select(root).where(predicateList.toArray(new Predicate[predicateList.size()]));
-            return ResponseEntity.ok(entityManager.createQuery(query).getResultList());
-        }*/
+        return repositorioPersona.getCreate_date(conditions);
+    }*/
 }
 

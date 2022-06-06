@@ -92,7 +92,7 @@ public class ServiceStudent implements com.ejercicios.DB1jpa.aplication.services
     @Override
     public PersonaStudentOutputDto findIdStudentFull(String id) throws Exception {
         StudentEntity studentEntity = repositorioStudent.findById(id).orElseThrow(() -> new Exception("Error"));
-        Persona personaEntity = repositorioPersona.getById(studentEntity.getPersona().getId_persona());
+        Persona personaEntity = repositorioPersona.findById(studentEntity.getPersona().getId_persona()).get();
         return new PersonaStudentOutputDto(personaEntity, studentEntity);
     }
     @Override

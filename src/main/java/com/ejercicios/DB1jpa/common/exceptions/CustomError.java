@@ -14,6 +14,10 @@ public class CustomError {
 		this.httpCodeMessage=httpCodeMessage;
 	}
 
+	public CustomError(Date timestamp, String message, String reasonPhrase) {
+
+	}
+
 	public String getHttpCodeMessage() {
 		return httpCodeMessage;
 	}
